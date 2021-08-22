@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  background: rgb(85,0,182);
+  background: linear-gradient(99deg, rgba(85,0,182,1) 0%, rgba(11,0,163,1) 100%);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .App-logo {
@@ -12,7 +19,19 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.container {
+  height: 100%;
+  /* margin-left: 2%; */
+  /* margin-right: 2%; */
+  width: 100% !important;
+  max-width: 100% !important;
+  background-image: url('./images/worldfiber.jpg');
+  background-size: cover;
+  margin: 0% !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -30,10 +49,62 @@
 .inputrow {
   direction: rtl;
   display:flex;
-  flex-direction: row;
-  width: 80%;
-  margin: auto;
+  flex-direction: column;  
+  width: 30%;
+  justify-self: center;
+  align-items: center;
+  padding: 0% 5% 0% 5%;
 }
+.row {
+  margin: unset !important;
+}
+.form-label {
+  color: white;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+.form-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.form-select, .react-select__control, input {
+  background-color: rgba(255,255,255,0.05) !important;
+  color: white !important;
+  border-radius: 0px !important;
+  border: 0px !important;
+  border-bottom: 2px solid #50658a !important;
+}
+.react-select__menu, .react-select__option {
+  background-color: #154c79 !important;
+  color: white;
+}
+
+.react-select__option:hover {
+  background-color:rgba(255,255,255,0.1) !important;
+}
+
+.react-select__indicator-separator, .react-select__input{
+  display:none !important;
+}
+
+.col {
+  margin: 3%;
+}
+
+.btn-primary {
+  background-color: transparent !important;
+  border: 3px solid !important;
+  border-color: rgba(255,255,255,0.3) !important;
+  border-radius: 0px !important;
+  font-weight: bolder;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px !important;
+  width: 50% !important;
+  margin-top: 10% !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
