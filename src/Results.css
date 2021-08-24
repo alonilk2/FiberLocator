@@ -1,0 +1,91 @@
+.results-container {
+    width: 100%;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 50px;
+    border: 0px solid;
+    margin-left: 150px;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(30px);
+    padding: 1%;
+    animation: 1.5s ease-out 0s 1 slideOnStartTop;
+    align-self: center;
+}
+.result-box {
+    height: 75%;
+    background-color: rgba(255,255,255,0.4);
+    border-radius: 15px;
+    margin: 0.5% !important;
+    display: flex;
+    flex-direction: column;
+}
+.row {
+    flex: 1;
+}
+
+.upper-row, .lower-row{
+    margin: 1% !important;
+
+}
+.company-logo {
+    width: 70%;
+    justify-self: center;
+    align-self: center;
+    object-fit:fill;
+}
+
+.company-logo-circle {
+    display: flex;
+    justify-content: center;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.9);
+    align-self: center;
+    margin-top: 2em;
+}
+
+.bezeq {
+    background-color: rgba(27,37,77,0.8)
+}
+.cellcom {
+    background-color: rgba(144,48,143,0.8)
+}
+.unlimited {
+    background-color: rgba(0,170,78,0.8)
+}
+.hot {
+    background-color: rgba(254,0,0,0.8)
+}
+.result-paragraph {
+    direction: rtl;
+    margin-top: 1em;
+}
+.success {
+    color:white;
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+@keyframes slideOnStartLeft {
+    0% {
+        transform: translateX(-300%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+@keyframes slideOnStartTop {
+    0% {
+        transform: translateY(-300%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

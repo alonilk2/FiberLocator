@@ -29,8 +29,9 @@
   background-size: cover;
   margin: 0% !important;
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   justify-content: center;
+  position: relative;
 }
 .App-header {
   background-color: #282c34;
@@ -48,12 +49,16 @@
 }
 .inputrow {
   direction: rtl;
-  display:flex;
-  flex-direction: column;  
-  width: 30%;
-  justify-self: center;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 0% 5% 0% 5%;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  position: absolute;
+  right: 5em;
+  top: 20em;
 }
 .row {
   margin: unset !important;
@@ -64,18 +69,29 @@
   font-family: 'Roboto', sans-serif;
 }
 .form-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
+  width: 100%;
 }
-.form-select, .react-select__control, input {
-  background-color: rgba(255,255,255,0.05) !important;
+.react-select__control, input {
+  background-color: rgba(255,255,255,0.00) !important;
   color: white !important;
   border-radius: 0px !important;
   border: 0px !important;
   border-bottom: 2px solid #50658a !important;
+  background-position: left !important;
+  background-size: 1rem !important;
+  fill: currentColor !important;
 }
+.form-select {
+  background-color: rgba(0,0,0,1) !important;
+  color: hsl(0, 0%, 100%) !important;
+  border-radius: 0px !important;
+  border: 0px !important;
+  border-bottom: 2px solid #50658a !important;
+  background-position: left .7em top 50%, 0 0 !important;
+  background-size: 1rem !important;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 16 16' width='20' height='20' stroke='currentColor' stroke-width='0' xmlns='http://www.w3.org/2000/svg'><g><path d='M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z' fill='white'/></g></svg>") !important;
+}
+
 .react-select__menu, .react-select__option {
   background-color: #154c79 !important;
   color: white;
@@ -85,10 +101,20 @@
   background-color:rgba(255,255,255,0.1) !important;
 }
 
-.react-select__indicator-separator, .react-select__input{
+.react-select__indicator-separator{
   display:none !important;
 }
-
+.react-select__single-value{
+  color: white !important;
+  font-size: 20px !important;
+  
+}
+input {
+  border-bottom: 0px !important;
+}
+.appartment-input {
+  border-bottom: 2px solid #50658a !important;
+}
 .col {
   margin: 3%;
 }

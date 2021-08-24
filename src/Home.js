@@ -3,8 +3,9 @@ import Axios from 'axios';
 import Select from 'react-select'
 import './App.css';
 import { Col, Row, Form, Button } from "react-bootstrap";
-import cityList from './CityList';
+import cityList from './CityList.json';
 import Modal from 'react-bootstrap/Modal'
+import Results from './Results'
 function removeDuplicates(arr){
     let i=0, x=0;
     for(i=0; i<arr.length-1; i++){
@@ -33,11 +34,13 @@ function Home() {
     const [houseSelected, setHouseSelected] = useState('');
     const [appSelected, setAppSelected] = useState(1);
     const [entSelected, setEntSelected] = useState('');
-    const [isFiber, setIsFiber] = useState('');
-    const [isFiberCellcom, setIsFiberCellcom] = useState('');
+    const [isFiber, setIsFiber] = useState(false);
+    const [isFiberCellcom, setIsFiberCellcom] = useState(false);
 
     const [checkDuplicates, setCheckDuplicates] = useState(false);
     const [streetsModal, toggleStreetsModal] = useState(false);
+    const [showResults, toggleShowResults] = useState(false);
+
     useEffect(() => {
         if(streetSelected.value) findEquivalentCityID();
     }, [streetSelected])
@@ -64,7 +67,7 @@ function Home() {
         try{
             const responseHot = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.hot.net.il/Api/PersonalDetails.asmx/CheckAddressForFiber",
             {
-                "CityId": city,
+                "CityId": city.value,
                 "StreetId": streetSelected.value,
                 "HouseId": houseSelected,
                 "ApartmentID": appSelected,
@@ -72,22 +75,40 @@ function Home() {
             });
             if(responseHot) setIsFiber(responseHot.data.d.IsFiber);
             let street = streetSelectedCellcom ? streetSelectedCellcom.value : streetSelected.value
-            const responseCell = await Axios.get("https://damp-hamlet-24907.herokuapp.com/https://digital-api.cellcom.co.il/api/Fiber/GetFiberAddressStatus/"
-                                    +city+"/"
+            const responseCell = await Axios.get("https://digital-api.cellcom.co.il/api/Fiber/GetFiberAddressStatus/"
+                                    +city.value+"/"
                                     +street+"/"
                                     +houseSelected+"/"
                                     +appSelected);
             if(responseCell.data.Body.dataInfoList)
                 setIsFiberCellcom(responseCell.data.Body.dataInfoList.length > 0 ? true : false);
+            const responseBezeq = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.bezeq.co.il/umbraco/api/FormWebApi/CheckAddress",
+            {
+
+                "CityId": city.value,
+                "City": city.label,
+                "StreetId": streetSelected.value,
+                "Street": streetSelected.label,
+                "House": houseSelected,
+                "Entrance": entSelected
+            });
+            if(responseBezeq) {
+                console.log(responseBezeq.data.Status)   
+            }
+            // const unlimitedResponse = await Axios.get("https://damp-hamlet-24907.herokuapp.com/https://www.unlimited.net.il/wp-json/api/v1/houses?city="+city.value+"&"+"street="+street)
+            // if(unlimitedResponse)
+            //     console.log(unlimitedResponse.data[0].id)
+            toggleShowResults(true);
         }
         catch (err) {
             console.error(err)
         }
     }
+
     const handleCitySelection = async (event) => {
-        event.preventDefault();
-        let cityId = event.target.value;
-        setCity(parseInt(cityId))
+        let cityId = event.value;
+        let city = event;
+        setCity(city);
         try{
             const streetsList = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.hot.net.il/Api/PersonalDetails.asmx/GetstreetsByCityId",
             {
@@ -156,7 +177,7 @@ function Home() {
         try{
             const houseList = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.hot.net.il/Api/PersonalDetails.asmx/GetHouseByCityStreet",
             {
-                "CityId": city,
+                "CityId": city.value,
                 "StreetId": event.value
             });
             if(houseList) {
@@ -251,9 +272,10 @@ function Home() {
                     <Row className="inputrow">
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>City</Form.Label>
-                        <Form.Select className='react-select-container' classNamePrefix="react-select" defaultValue="Choose City" onChange={handleCitySelection}>
+                        {/* <Form.Select className="select-custom" defaultValue="Choose City" onChange={handleCitySelection}>
                             {cityList()}
-                        </Form.Select>
+                        </Form.Select> */}
+                        <Select className='react-select-container' classNamePrefix="react-select" options={cityList} onChange={handleCitySelection} />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>Street</Form.Label>
@@ -263,21 +285,20 @@ function Home() {
                             <Form.Label>House</Form.Label>
                             <Select className='react-select-container' classNamePrefix="react-select" options={houses} onChange={handleHouseSelection} />
                         </Form.Group>
-                        <Form.Group as={Col} controlId="formGridState">
+                        {/* <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>Appartment</Form.Label>
-                            <Form.Control onChange={handleAppSelection} type="text" defaultValue="1" />
+                            <Form.Control className='appartment-input' onChange={handleAppSelection} type="text" defaultValue="1" />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>Entrances</Form.Label>
                             <Select className='react-select-container' classNamePrefix="react-select" options={entrances} onChange={handleEntranceSelection} />
-                        </Form.Group>
+                        </Form.Group> */}
                         <Button variant="primary" type="submit">
                             בדוק חיבור
                         </Button>
                     </Row>
-
-                    <h2> חיבור: {isFiber ? "YES" : isFiber} </h2>
                 </Form>
+                { showResults ? <Results cellcom={isFiberCellcom} hot={isFiber}/> : null}
             </div>
         </div>
     );
