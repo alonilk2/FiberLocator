@@ -23,6 +23,7 @@ function Home() {
     const [streetsCellcom, setStreetsCellcom] = useState([]);
     const [houses, setHouses] = useState([]);
     const [apps, setApps] = useState([]);
+    const [loading, toggleLoading] = useState(false);
     const [entrances, setEntrances] = useState([]);
     const [streetSelected, setStreetSelected] = useState({
         "label": null,
@@ -36,7 +37,7 @@ function Home() {
     const [entSelected, setEntSelected] = useState('');
     const [isFiber, setIsFiber] = useState(false);
     const [isFiberCellcom, setIsFiberCellcom] = useState(false);
-
+    const [isFiberBezeq, setIsFiberBezeq] = useState(false);
     const [checkDuplicates, setCheckDuplicates] = useState(false);
     const [streetsModal, toggleStreetsModal] = useState(false);
     const [showResults, toggleShowResults] = useState(false);
@@ -65,6 +66,7 @@ function Home() {
 
     const handleSubmit = async () =>{
         try{
+            toggleLoading(true);
             const responseHot = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.hot.net.il/Api/PersonalDetails.asmx/CheckAddressForFiber",
             {
                 "CityId": city.value,
@@ -92,12 +94,14 @@ function Home() {
                 "House": houseSelected,
                 "Entrance": entSelected
             });
-            if(responseBezeq) {
-                console.log(responseBezeq.data.Status)   
-            }
+            if(responseBezeq) 
+                if(responseBezeq.data.Status < 3)
+                    setIsFiberBezeq(true);
+
             // const unlimitedResponse = await Axios.get("https://damp-hamlet-24907.herokuapp.com/https://www.unlimited.net.il/wp-json/api/v1/houses?city="+city.value+"&"+"street="+street)
             // if(unlimitedResponse)
             //     console.log(unlimitedResponse.data[0].id)
+            toggleLoading(false);
             toggleShowResults(true);
         }
         catch (err) {
@@ -268,21 +272,22 @@ function Home() {
     return (
         <div className="App">
             <div className="container">
+                <h1 className="main-title"> בדיקת סיבים אופטיים </h1>
                 <Form onSubmit={openModal} className="form-div">
                     <Row className="inputrow">
                         <Form.Group as={Col} controlId="formGridState">
-                        <Form.Label>City</Form.Label>
+                        <Form.Label>בחר עיר</Form.Label>
                         {/* <Form.Select className="select-custom" defaultValue="Choose City" onChange={handleCitySelection}>
                             {cityList()}
                         </Form.Select> */}
                         <Select className='react-select-container' classNamePrefix="react-select" options={cityList} onChange={handleCitySelection} />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
-                            <Form.Label>Street</Form.Label>
+                            <Form.Label>בחר רחוב</Form.Label>
                             <Select className='react-select-container' classNamePrefix="react-select" options={streets} onChange={handleStreetSelection} />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
-                            <Form.Label>House</Form.Label>
+                            <Form.Label>בחר בית</Form.Label>
                             <Select className='react-select-container' classNamePrefix="react-select" options={houses} onChange={handleHouseSelection} />
                         </Form.Group>
                         {/* <Form.Group as={Col} controlId="formGridState">
@@ -293,12 +298,12 @@ function Home() {
                             <Form.Label>Entrances</Form.Label>
                             <Select className='react-select-container' classNamePrefix="react-select" options={entrances} onChange={handleEntranceSelection} />
                         </Form.Group> */}
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" className={loading ? "btn-primary loader" : "btn-primary"}>
                             בדוק חיבור
                         </Button>
                     </Row>
                 </Form>
-                { showResults ? <Results cellcom={isFiberCellcom} hot={isFiber}/> : null}
+                { showResults ? <Results cellcom={isFiberCellcom} hot={isFiber} bezeq={isFiberBezeq} /> : null}
             </div>
         </div>
     );

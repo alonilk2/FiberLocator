@@ -58,7 +58,7 @@
   top: 10px;
   position: absolute;
   right: 5em;
-  top: 20em;
+  top: 25em;
 }
 .row {
   margin: unset !important;
@@ -76,7 +76,7 @@
   color: white !important;
   border-radius: 0px !important;
   border: 0px !important;
-  border-bottom: 2px solid #50658a !important;
+  border-bottom: 2px solid rgba(255,255,255,0.5) !important;
   background-position: left !important;
   background-size: 1rem !important;
   fill: currentColor !important;
@@ -86,7 +86,7 @@
   color: hsl(0, 0%, 100%) !important;
   border-radius: 0px !important;
   border: 0px !important;
-  border-bottom: 2px solid #50658a !important;
+  border-bottom: 2px solid rgba(255,255,255,0.5) !important;
   background-position: left .7em top 50%, 0 0 !important;
   background-size: 1rem !important;
   background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 16 16' width='20' height='20' stroke='currentColor' stroke-width='0' xmlns='http://www.w3.org/2000/svg'><g><path d='M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z' fill='white'/></g></svg>") !important;
@@ -118,17 +118,74 @@ input {
 .col {
   margin: 3%;
 }
-
+:focus {
+  outline: 0px !important;
+}
 .btn-primary {
   background-color: transparent !important;
-  border: 3px solid !important;
-  border-color: rgba(255,255,255,0.3) !important;
+  border: 2px solid !important;
+  border-color: rgba(255,255,255,0.5) !important;
   border-radius: 0px !important;
   font-weight: bolder;
   font-family: 'Roboto', sans-serif;
   font-size: 20px !important;
-  width: 50% !important;
   margin-top: 10% !important;
+}
+.btn-primary:focus{
+  outline: 0px !important;
+}
+.main-title{
+  color:white !important;
+  font-family: 'Rubik','Roboto', sans-serif;
+  font-size: 90px;
+  position: absolute;
+  right: 30px;
+  top: 100px;
+}
+
+@property --a {
+  initial-value: 0deg;
+  inherits: false;
+  syntax: '<angle>';
+}
+@property --h {
+  initial-value: 0;
+  inherits: false;
+  syntax: '<number>';
+}
+.loader {
+  color: #fff !important;
+
+  font-size: 20px !important;
+  --charge: hsl(var(--h, 0), 80%, 50%) !important;
+  -o-border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 20 !important;
+     border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 20 !important;
+  -webkit-animation: load 2s infinite ease-in-out !important;
+          animation: load 2s infinite ease-in-out !important;
+}
+.loader:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+@-webkit-keyframes load {
+  0%, 10% {
+    --a: 0deg;
+    --h: 0;
+  }
+  100% {
+    --a: 360deg;
+    --h: 100;
+  }
+}
+@keyframes load {
+  0%, 10% {
+    --a: 0deg;
+    --h: 0;
+  }
+  100% {
+    --a: 360deg;
+    --h: 100;
+  }
 }
 
 @keyframes App-logo-spin {

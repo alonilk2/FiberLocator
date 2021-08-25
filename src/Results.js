@@ -8,8 +8,6 @@ import Bezeq from './images/bezeq.png';
 import Unlimited from './images/unlimited.png';
 
 function Results(props) {
-
-    const [city, setCity] = useState('');
     const titleFactory = (isFiber) => {
         if(isFiber) return (<h3 className="result-paragraph success"> מזל טוב ! <br />
                     נראה כי יש לכם סיבים
@@ -26,7 +24,7 @@ function Results(props) {
                     <div className="company-logo-circle">
                         <img src={Bezeq} className="company-logo" />
                     </div>            
-                    {props.hot ? titleFactory(true) : titleFactory(false)}
+                    {props.bezeq ? titleFactory(true) : titleFactory(false)}
                 </div>            
                 <div className="col result-box cellcom">
                     <div className="company-logo-circle">
