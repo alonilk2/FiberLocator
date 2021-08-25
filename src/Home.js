@@ -7,6 +7,7 @@ import cityList from './CityList.json';
 import Modal from 'react-bootstrap/Modal'
 import Results from './Results'
 import abdev from './images/abdev.png'
+import ReactLoading from "react-loading";
 
 function removeDuplicates(arr){
     let i=0, x=0;
@@ -26,6 +27,7 @@ function Home() {
     const [houses, setHouses] = useState([]);
     const [apps, setApps] = useState([]);
     const [loading, toggleLoading] = useState(false);
+    const [loadingSelect, toggleLoadingSelect] = useState(false);
     const [entrances, setEntrances] = useState([]);
     const [streetSelected, setStreetSelected] = useState({
         "label": null,
@@ -115,6 +117,7 @@ function Home() {
         let cityId = event.value;
         let city = event;
         setCity(city);
+        toggleLoadingSelect(true)
         try{
             const streetsList = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.hot.net.il/Api/PersonalDetails.asmx/GetstreetsByCityId",
             {
@@ -136,6 +139,8 @@ function Home() {
                 })
                 setStreetsHOT(options);
                 setStreetsCellcom(optionsCellcom);
+                toggleLoadingSelect(false)
+
             }
         }
         catch (err) {
@@ -180,6 +185,7 @@ function Home() {
         let streetHOT = event;
         setStreetSelected(event);
         setStreetStringArray(event.label.split(" "));
+        toggleLoadingSelect(true)
         try{
             const houseList = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.hot.net.il/Api/PersonalDetails.asmx/GetHouseByCityStreet",
             {
@@ -194,6 +200,8 @@ function Home() {
                     }
                 })
                 setHouses(options);
+                toggleLoadingSelect(false)
+
             }
         }
         catch (err) {
@@ -304,6 +312,8 @@ function Home() {
                         <Button variant="primary" type="submit" className={loading ? "btn-primary loader" : "btn-primary"}>
                             בדוק חיבור
                         </Button>
+                        {loadingSelect ? <ReactLoading className="loading-spinner" type="spin" color="#fff" /> : null}
+
                     </Row>
                 </Form>
                 { showResults ? <Results cellcom={isFiberCellcom} hot={isFiber} bezeq={isFiberBezeq} /> : null}

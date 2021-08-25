@@ -153,6 +153,11 @@ input {
   top: 240px;
   text-align: right;
 }
+.loading-spinner {
+  position: absolute;
+  bottom: -100px;
+  right: 165px;
+}
 .abdev {
   width: 100px;
   position: absolute;
