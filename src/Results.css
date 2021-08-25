@@ -6,8 +6,8 @@
     margin-left: 150px;
     display: flex;
     flex-direction: column;
-    backdrop-filter: blur(30px);
-    padding: 1%;
+    backdrop-filter: blur(20px);
+    padding: 1.5%;
     animation: 1.5s ease-out 0s 1 slideOnStartTop;
     align-self: center;
 }

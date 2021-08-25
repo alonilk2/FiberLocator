@@ -6,6 +6,8 @@ import { Col, Row, Form, Button } from "react-bootstrap";
 import cityList from './CityList.json';
 import Modal from 'react-bootstrap/Modal'
 import Results from './Results'
+import abdev from './images/abdev.png'
+
 function removeDuplicates(arr){
     let i=0, x=0;
     for(i=0; i<arr.length-1; i++){
@@ -273,6 +275,7 @@ function Home() {
         <div className="App">
             <div className="container">
                 <h1 className="main-title"> בדיקת סיבים אופטיים </h1>
+                <h4 className="main-paragraph"> ברוכים הבאים לFiberLocator, הכלי הראשון והיחיד בישראל אשר מאפשר לכם לבדוק האם ישנה תשתית סיבים בכתובתכם של החברות הוט, בזק וסלקום, ללא צורך ביצירת קשר עם כל חברה בנפרד. </h4>
                 <Form onSubmit={openModal} className="form-div">
                     <Row className="inputrow">
                         <Form.Group as={Col} controlId="formGridState">
@@ -280,15 +283,15 @@ function Home() {
                         {/* <Form.Select className="select-custom" defaultValue="Choose City" onChange={handleCitySelection}>
                             {cityList()}
                         </Form.Select> */}
-                        <Select className='react-select-container' classNamePrefix="react-select" options={cityList} onChange={handleCitySelection} />
+                        <Select className='react-select-container' classNamePrefix="react-select" placeholder="בחר עיר" options={cityList} onChange={handleCitySelection} />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>בחר רחוב</Form.Label>
-                            <Select className='react-select-container' classNamePrefix="react-select" options={streets} onChange={handleStreetSelection} />
+                            <Select className='react-select-container' placeholder="בחר רחוב" classNamePrefix="react-select" options={streets} onChange={handleStreetSelection} />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>בחר בית</Form.Label>
-                            <Select className='react-select-container' classNamePrefix="react-select" options={houses} onChange={handleHouseSelection} />
+                            <Select className='react-select-container' classNamePrefix="react-select" placeholder="בחר בית" options={houses} onChange={handleHouseSelection} />
                         </Form.Group>
                         {/* <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>Appartment</Form.Label>
@@ -304,6 +307,7 @@ function Home() {
                     </Row>
                 </Form>
                 { showResults ? <Results cellcom={isFiberCellcom} hot={isFiber} bezeq={isFiberBezeq} /> : null}
+                <a href="https://github.com/alonilk2"><img src={abdev} className="abdev" /></a>
             </div>
         </div>
     );
