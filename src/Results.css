@@ -1,24 +1,4 @@
-.results-container {
-    width: 100%;
-    background-color: rgba(255,255,255,0.2);
-    border-radius: 50px;
-    border: 0px solid;
-    margin-left: 150px;
-    display: flex;
-    flex-direction: column;
-    backdrop-filter: blur(20px);
-    padding: 1.5%;
-    animation: 1.5s ease-out 0s 1 slideOnStartTop;
-    align-self: center;
-}
-.result-box {
-    height: 75%;
-    background-color: rgba(255,255,255,0.4);
-    border-radius: 15px;
-    margin: 0.5% !important;
-    display: flex;
-    flex-direction: column;
-}
+
 .row {
     flex: 1;
 }

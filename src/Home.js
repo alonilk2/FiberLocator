@@ -280,12 +280,12 @@ function Home() {
         )
     }
     return (
-        <div className="App">
-            <div className="container">
-                <h1 className="main-title"> בדיקת סיבים אופטיים </h1>
-                <h4 className="main-paragraph"> ברוכים הבאים לFiberLocator, הכלי הראשון והיחיד בישראל אשר מאפשר לכם לבדוק האם ישנה תשתית סיבים בכתובתכם של החברות הוט, בזק וסלקום, ללא צורך ביצירת קשר עם כל חברה בנפרד. </h4>
-                <Form onSubmit={openModal} className="form-div">
-                    <Row className="inputrow">
+        <div className="blurer">
+            <div className={showResults === false ? "is-shown" : "container"}>
+                <h1 className="row main-title"> בדיקת סיבים אופטיים </h1>
+                <h4 className="row main-paragraph"> ברוכים הבאים לFiberLocator, הכלי הראשון והיחיד בישראל אשר מאפשר לכם לבדוק האם ישנה תשתית סיבים בכתובתכם של החברות הוט, בזק וסלקום, ללא צורך ביצירת קשר עם כל חברה בנפרד. </h4>
+                <Form onSubmit={openModal} className="row form-div">
+                    <div className="inputrow">
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>בחר עיר</Form.Label>
                         {/* <Form.Select className="select-custom" defaultValue="Choose City" onChange={handleCitySelection}>
@@ -312,13 +312,16 @@ function Home() {
                         <Button variant="primary" type="submit" className={loading ? "btn-primary loader" : "btn-primary"}>
                             בדוק חיבור
                         </Button>
-                        {loadingSelect ? <ReactLoading className="loading-spinner" type="spin" color="#fff" /> : null}
+                        {loadingSelect ? <ReactLoading className="row loading-spinner" type="spin" color="#fff" /> : <ReactLoading className="row loading-spinner-hidden" type="spin" color="#fff" />}
+                        <a href="https://github.com/alonilk2"><img src={abdev} className="row abdev" /></a>
 
-                    </Row>
+
+                    </div>
+                    
                 </Form>
-                { showResults ? <Results cellcom={isFiberCellcom} hot={isFiber} bezeq={isFiberBezeq} /> : null}
-                <a href="https://github.com/alonilk2"><img src={abdev} className="abdev" /></a>
+                
             </div>
+            { showResults ? <Results cellcom={isFiberCellcom} hot={isFiber} bezeq={isFiberBezeq} /> : null}
         </div>
     );
 }

@@ -1,14 +1,28 @@
+
+/* Extra small devices (phones, 600px and down) */
+.main-title{
+  color:white !important;
+  font-size: 50px;
+  align-self: center;
+}
 .App {
   text-align: center;
-  background: rgb(85,0,182);
-  background: linear-gradient(99deg, rgba(85,0,182,1) 0%, rgba(11,0,163,1) 100%);
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  overflow: scroll;
+  background-image: url('./images/worldfiber.jpg');
+  background-size: cover;
 }
-
+.row {
+  --bs-gutter-x: unset !important;
+}
+html, body, #root {
+  min-height: 100% !important;
+  height: 100%;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -20,18 +34,38 @@
   }
 }
 .container {
+  height: 0%;
+  background-position-x: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: 1.5s ease-in-out 0s 1 slideOnStartRight;
+  overflow: hidden;
+}
+.is-shown {
   height: 100%;
-  /* margin-left: 2%; */
-  /* margin-right: 2%; */
   width: 100% !important;
   max-width: 100% !important;
-  background-image: url('./images/worldfiber.jpg');
-  background-size: cover;
   margin: 0% !important;
+  background-position-x: 65%;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
+  animation: 1.5s ease-in-out 0s 1 slideOnStartLeft;
+
+}
+.blurer {
+  backdrop-filter: blur(2px);
+  background-color: rgba(0,0,0,0.6);
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  position: relative;
+  padding-top: 5%;
+  height: 100%;
+  overflow: scroll;
+}
+.col {
+  width: 100%;
 }
 .App-header {
   background-color: #282c34;
@@ -43,34 +77,47 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+.form-div{
+  flex: auto !important;
+  margin-bottom: 10%;
+}
 .App-link {
   color: #61dafb;
 }
 .inputrow {
   direction: rtl;
-  width: 20%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  position: absolute;
-  right: 5em;
-  top: 25em;
+
 }
-.row {
-  margin: unset !important;
+.results-container {
+  width: 90%;
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 50px;
+  border: 0px solid;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(20px);
+  padding: 2%;
+  animation: 1.5s ease-out 0s 1 slideOnStartTop;
+  align-self: center;
+  margin: 0% 2%;
+}
+.result-box {
+  background-color: rgba(255,255,255,0.4);
+  border-radius: 35px;
+  margin: 1% !important;
+  display: flex;
+  flex-direction: column;
 }
 .form-label {
   color: white;
   font-size: 20px;
   font-family: 'Roboto', sans-serif;
 }
-.form-div {
-  width: 100%;
-}
+
 .react-select__control, input {
   background-color: rgba(255,255,255,0.00) !important;
   color: white !important;
@@ -112,57 +159,39 @@
 input {
   border-bottom: 0px !important;
 }
-.appartment-input {
-  border-bottom: 2px solid #50658a !important;
-}
 .col {
-  margin: 3%;
-}
-:focus {
-  outline: 0px !important;
+  margin: auto;
 }
 .btn-primary {
   background-color: transparent !important;
   border: 2px solid !important;
-  border-color: rgba(255,255,255,0.5) !important;
+  border-color: rgba(148, 84, 84, 0.5) !important;
   border-radius: 0px !important;
   font-weight: bolder;
   font-family: 'Roboto', sans-serif;
   font-size: 20px !important;
-  margin-top: 10% !important;
-}
-.btn-primary:focus{
-  outline: 0px !important;
-}
-.main-title{
-  color:white !important;
-  font-family: 'Rubik','Roboto', sans-serif;
-  font-size: 90px;
-  position: absolute;
-  right: 30px;
-  top: 100px;
 }
 .main-paragraph { 
-  width: 35%;
   color: white;
   font-size: 18px;
   font-weight: lighter;
   direction: rtl;
-  position: absolute;
-  right: 30px;
-  top: 240px;
   text-align: right;
 }
 .loading-spinner {
-  position: absolute;
-  bottom: -100px;
-  right: 165px;
+  margin: 1% !important;
+  height: 32px !important;
+  width: 32px !important;
+}
+.loading-spinner-hidden {
+  margin: 1% !important;
+  opacity: 0;
+  height: 32px !important;
+  width: 32px !important;
 }
 .abdev {
-  width: 100px;
-  position: absolute;
-  bottom: 10px;
-  right: 230px;
+  height: 6vh;
+  margin-bottom: 2vh;
 }
 @property --a {
   initial-value: 0deg;
@@ -180,7 +209,7 @@ input {
   font-size: 20px !important;
   --charge: hsl(var(--h, 0), 80%, 50%) !important;
   -o-border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 20 !important;
-     border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 20 !important;
+    border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 20 !important;
   -webkit-animation: load 2s infinite ease-in-out !important;
           animation: load 2s infinite ease-in-out !important;
 }
@@ -188,6 +217,290 @@ input {
   outline: none !important;
   box-shadow: none !important;
 }
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+
+
+@media only screen and (min-width: 768px) {
+  .App {
+    text-align: center;
+    background: rgb(0,2,44);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    background-image: url('./images/worldfiber.jpg');
+    background-size: cover;
+    background-position: -3vw;
+    background-repeat: no-repeat;
+    padding-top: 3%;
+  }
+  .results-container {
+    width: 50%;
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 50px;
+    border: 0px solid;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    animation: 1.5s ease-out 0s 1 slideOnStartTop;
+    align-self: center;
+    height: unset;
+    backdrop-filter: blur(20px);
+
+}
+.result-box {
+    background-color: rgba(255,255,255,0.4);
+    backdrop-filter: blur(20px);
+
+    border-radius: 15px;
+    margin: 0.5% !important;
+    display: flex;
+    flex-direction: column;
+}
+  html, body, #root {
+    min-height: 100% !important;
+    height: 100%;
+  }
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+
+  .container {
+    height: 0%;
+    background-position-x: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: 1.5s ease-in-out  slideOnStartRight;
+    overflow: hidden;
+  }
+  .is-shown {
+    height: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0% !important;
+    background-position-x: 65%;
+    display: flex;
+    flex-direction: column;
+    animation: 1.5s ease-in-out 0s 1 slideOnStartLeft;
+  }
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  .blurer {
+    backdrop-filter: none;
+    background-color: rgba(0,0,0,0.0);
+    width: 100% !important;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 0% !important;
+    overflow: hidden;
+    
+  }
+  .blurer-results {
+    width: 50%;
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(2px) !important;
+
+  }
+  .row{
+    flex: 0 !important;
+  }
+  .App-link {
+    color: #61dafb;
+  }
+  .inputrow {
+    direction: rtl;
+    width: 25% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 2%;
+  }
+  .row {
+    margin: unset !important;
+  }
+  .form-label {
+    color: white;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+  }
+  .form-div {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .col {
+    width: 100%;
+  }
+  .react-select__control, input {
+    background-color: rgba(255,255,255,0.00) !important;
+    color: white !important;
+    border-radius: 0px !important;
+    border: 0px !important;
+    border-bottom: 2px solid rgba(255,255,255,0.5) !important;
+    background-position: left !important;
+    background-size: 1rem !important;
+    fill: currentColor !important;
+  }
+  .form-select {
+    background-color: rgba(0,0,0,1) !important;
+    color: hsl(0, 0%, 100%) !important;
+    border-radius: 0px !important;
+    border: 0px !important;
+    border-bottom: 2px solid rgba(255,255,255,0.5) !important;
+    background-position: left .7em top 50%, 0 0 !important;
+    background-size: 1rem !important;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 16 16' width='20' height='20' stroke='currentColor' stroke-width='0' xmlns='http://www.w3.org/2000/svg'><g><path d='M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z' fill='white'/></g></svg>") !important;
+  }
+
+  .react-select__menu, .react-select__option {
+    background-color: #154c79 !important;
+    color: white;
+  }
+
+  .react-select__option:hover {
+    background-color:rgba(255,255,255,0.1) !important;
+  }
+
+  .react-select__indicator-separator{
+    display:none !important;
+  }
+  .react-select__single-value{
+    color: white !important;
+    font-size: 20px !important;
+    
+  }
+  input {
+    border-bottom: 0px !important;
+  }
+  .appartment-input {
+    border-bottom: 2px solid #50658a !important;
+  }
+  .col {
+    margin: 3%;
+  }
+  :focus {
+    outline: 0px !important;
+  }
+  .btn-primary {
+    background-color: transparent !important;
+    border: 2px solid !important;
+    border-color: rgba(255,255,255,0.5) !important;
+    border-radius: 0px !important;
+    font-weight: bolder;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px !important;
+    margin-top: 10% !important;
+  }
+  .btn-primary:focus{
+    outline: 0px !important;
+  }
+  .main-title{
+    color:white !important;
+    font-family: 'Rubik','Roboto', sans-serif;
+    font-size: 90px;
+    justify-content: flex-end;
+    flex: auto;
+    margin-right: 2% !important;
+    align-self: flex-end;
+  }
+  .main-paragraph { 
+    color: white;
+    font-size: 18px;
+    font-weight: lighter;
+    direction: rtl;
+    width: 30%;
+    align-self: flex-end;
+    margin: 2% !important;
+  }
+  .loading-spinner {
+    margin: 5% !important;
+    height: 32px !important;
+    width: 32px !important;
+  }
+  .loading-spinner-hidden {
+    opacity: 0;
+    margin: 5% !important;
+    height: 32px !important;
+    width: 32px !important;
+  }
+  .abdev {
+    width: 100px;
+    margin-top:30px;
+  }
+  @property --a {
+    initial-value: 0deg;
+    inherits: false;
+    syntax: '<angle>';
+  }
+  @property --h {
+    initial-value: 0;
+    inherits: false;
+    syntax: '<number>';
+  }
+  .loader {
+    color: #fff !important;
+
+    font-size: 20px !important;
+    --charge: hsl(var(--h, 0), 80%, 50%) !important;
+    -o-border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 20 !important;
+      border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 20 !important;
+    -webkit-animation: load 2s infinite ease-in-out !important;
+            animation: load 2s infinite ease-in-out !important;
+  }
+  .btn-primary:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+}
+
+
+
+
+@keyframes slideOnStartLeft {
+  0% {
+      transform: translateX(-200%);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+@keyframes slideOnStartRight{
+  0% {
+      transform: translateX(0%);
+      height: 100%;
+  }
+  100% {
+      transform: translateX(-200%);
+      height: 0%;
+  }
+}
+
 @-webkit-keyframes load {
   0%, 10% {
     --a: 0deg;
@@ -217,3 +530,5 @@ input {
     transform: rotate(360deg);
   }
 }
+
+
