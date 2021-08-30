@@ -16,6 +16,17 @@
   background-image: url('./images/worldfiber.jpg');
   background-size: cover;
 }
+.new-test {
+  padding: 2%;
+  border: 2px solid !important;
+  background-color: rgba(33,0,70,0.9);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 25px;
+  margin: 2%;
+  animation: 1s ease-in-out 0s 1 slideOnStartBottom;
+}
 .row {
   --bs-gutter-x: unset !important;
 }
@@ -51,6 +62,7 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   animation: 1.5s ease-in-out 0s 1 slideOnStartLeft;
+  padding: 2%;
 
 }
 .blurer {
@@ -62,7 +74,6 @@ html, body, #root {
   justify-content: center;
   padding-top: 5%;
   height: 100%;
-  overflow: scroll;
 }
 .col {
   width: 100%;
@@ -92,6 +103,7 @@ html, body, #root {
   align-items: center;
 
 }
+
 .results-container {
   width: 90%;
   background-color: rgba(255,255,255,0.2);
@@ -103,7 +115,7 @@ html, body, #root {
   padding: 2%;
   animation: 1.5s ease-out 0s 1 slideOnStartTop;
   align-self: center;
-  margin: 0% 2%;
+  margin: auto;
 }
 .result-box {
   background-color: rgba(255,255,255,0.4);
@@ -250,10 +262,21 @@ input {
     display: flex;
     flex-direction: column;
     padding: 2%;
-    animation: 1.5s ease-out 0s 1 slideOnStartTop;
+    animation: 1s ease-in-out slideOnStartTop;
     align-self: center;
     height: unset;
     backdrop-filter: blur(20px);
+}
+.new-test {
+  padding: 1%;
+  border: 3px solid !important;
+  background-color: rgba(33,0,70,0.9);
+  color: white;
+  font-size: 25px;
+  font-weight: bolder;
+  border-radius: 25px;
+  margin: 2%;
+  animation: 1s ease-in-out 0s 1 slideOnStartBottom;
 
 }
 .result-box {
@@ -498,6 +521,22 @@ input {
   100% {
       transform: translateX(-200%);
       height: 0%;
+  }
+}
+@keyframes slideOnStartTop {
+  0% {
+      transform: translateY(-300%);
+  }
+  100% {
+      transform: translateY(0);
+  }
+}
+@keyframes slideOnStartBottom {
+  0% {
+      transform: translateY(300%);
+  }
+  100% {
+      transform: translateY(0);
   }
 }
 

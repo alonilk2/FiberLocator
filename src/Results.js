@@ -41,7 +41,6 @@ function Results(props) {
                     {props.hot ? titleFactory(true) : titleFactory(false)}
                 </div>    
             </div>
-        
 
         </div>
     );

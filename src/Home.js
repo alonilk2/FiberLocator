@@ -58,10 +58,6 @@ function Home() {
         }
     }, [checkDuplicates, equivalentStreetsArray])
 
-    useEffect(() => {   
-        if(appSelected && houseSelected) handleSubmit()
-    }, [appSelected, streetSelectedCellcom])
-
     const openModal = (e) => {
         e.preventDefault();
         if(equivalentStreetsArray.length > 0) toggleStreetsModal(true);
@@ -310,18 +306,23 @@ function Home() {
                             <Select className='react-select-container' classNamePrefix="react-select" options={entrances} onChange={handleEntranceSelection} />
                         </Form.Group> */}
                         <Button variant="primary" type="submit" className={loading ? "btn-primary loader" : "btn-primary"}>
-                            בדוק חיבור
+                            {loading ? "אנא המתן..." : "בדוק חיבור"}
                         </Button>
-                        {loadingSelect ? <ReactLoading className="row loading-spinner" type="spin" color="#fff" /> : <ReactLoading className="row loading-spinner-hidden" type="spin" color="#fff" />}
+                        {loadingSelect || loading ? <ReactLoading className="row loading-spinner" type="spin" color="#fff" /> : <ReactLoading className="row loading-spinner-hidden" type="spin" color="#fff" />}
                         <a href="https://github.com/alonilk2"><img src={abdev} className="row abdev" /></a>
 
 
                     </div>
-                    
                 </Form>
-                
             </div>
-            { showResults ? <Results cellcom={isFiberCellcom} hot={isFiber} bezeq={isFiberBezeq} /> : null}
+            { showResults ? 
+                <div>
+                    <Results cellcom={isFiberCellcom} hot={isFiber} bezeq={isFiberBezeq} />
+                    <button className="new-test" onClick={()=>{toggleShowResults(false)}}>
+                        הרץ בדיקה חדשה
+                    </button>
+                </div>
+             : null }
         </div>
     );
 }
