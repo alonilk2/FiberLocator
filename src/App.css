@@ -7,7 +7,6 @@
 }
 .App {
   text-align: center;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,12 +44,12 @@ html, body, #root {
   }
 }
 .container {
-  height: 0%;
+  height: 0px;
   background-position-x: 65%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  animation: 1.5s ease-in-out 0s 1 slideOnStartRight;
+  animation: 1s ease-in-out slideOnStartRight;
   overflow: hidden;
 }
 .is-shown {
@@ -61,7 +60,7 @@ html, body, #root {
   background-position-x: 65%;
   display: flex;
   flex-direction: column;
-  animation: 1.5s ease-in-out 0s 1 slideOnStartLeft;
+  animation: 1s ease-in-out slideOnStartLeft;
   padding: 2%;
 
 }
@@ -75,9 +74,62 @@ html, body, #root {
   padding-top: 5%;
   height: 100%;
 }
+.privacy-container {
+  width: 100%;
+  background-color: rgba(255,255,255,1);
+  border-radius: 50px;
+  border: 0px solid;
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+  animation: 1s ease-in-out slideOnStartTop;
+  backdrop-filter: blur(20px);
+  height: 80%;
+position: absolute;
+top: 0px;
+  color:black;
+}
+.privacy-content {
+overflow: scroll;
+overflow-x: hidden;
+}
+.privacy-content::-webkit-scrollbar {
+width: 15px;
+}
+.privacy-content::-webkit-scrollbar-track {
+border-radius: 10px;
+background-color: rgba(255, 255, 255, 0.1);
+}
+.privacy-content::-webkit-scrollbar-thumb {
+background-image: linear-gradient(45deg, #00aeff, #a68eff);
+border-radius: 10px;
+-webkit-box-shadow: rgba(0,0,0,.12) 0 3px 13px 1px;
+}
+.exit-privacy {
+background-color: transparent;
+border: unset;
+font-size: 30px;
+text-align:left;
+margin: 2%;
+color: black;
+}
 .col {
   width: 100%;
 }
+.modal-title {
+  direction: rtl;
+  color: white !important;
+}
+.modal-header {
+  border-bottom: 2px solid rgba(255,255,255,0.2) !important;
+}
+.modal-content {
+  background-color: rgba(255,255,255,0.3) !important;
+  border-radius: 25px !important;
+  border: 0px solid !important;
+  backdrop-filter: blur(20px) !important;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -103,7 +155,18 @@ html, body, #root {
   align-items: center;
 
 }
-
+.copyright {
+  color:white;
+  margin: auto;
+  margin-top: 2%;
+  font-size: 15px;
+  font-weight: normal;
+  background: transparent !important;
+  border: unset;
+}
+.bold {
+  font-weight: bolder !important;
+}
 .results-container {
   width: 90%;
   background-color: rgba(255,255,255,0.2);
@@ -113,7 +176,7 @@ html, body, #root {
   flex-direction: column;
   backdrop-filter: blur(20px);
   padding: 2%;
-  animation: 1.5s ease-out 0s 1 slideOnStartTop;
+  animation: 1s ease-in-out slideOnStartLeft;
   align-self: center;
   margin: auto;
 }
@@ -129,7 +192,11 @@ html, body, #root {
   font-size: 20px;
   font-family: 'Roboto', sans-serif;
 }
-
+.mp-bold {
+  margin: 0% 2% !important;
+  font-size: 12px !important;
+  font-weight: bolder;
+}
 .react-select__control, input {
   background-color: rgba(255,255,255,0.00) !important;
   color: white !important;
@@ -175,13 +242,21 @@ input {
   margin: auto;
 }
 .btn-primary {
-  background-color: transparent !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
   border: 2px solid !important;
-  border-color: rgba(148, 84, 84, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
   border-radius: 0px !important;
   font-weight: bolder;
   font-family: 'Roboto', sans-serif;
+  margin-top: 1%;
   font-size: 20px !important;
+  width: 100%;
+}
+.street-button {
+  background-color:rgb(0,2,44) !important;
+  border: 0px !important;
+  border-radius: 20px !important;
+  margin: 1em;
 }
 .main-paragraph { 
   color: white;
@@ -267,6 +342,46 @@ input {
     height: unset;
     backdrop-filter: blur(20px);
 }
+.privacy-container {
+    width: 40%;
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 50px;
+    border: 0px solid;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    animation: 1s ease-in-out slideOnStartTop;
+    backdrop-filter: blur(20px);
+    position: absolute;
+    bottom: 1vh;
+    left: 1vw;
+    height: 98%;
+
+    color:floralwhite;
+}
+.privacy-content {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.privacy-content::-webkit-scrollbar {
+  width: 15px;
+}
+.privacy-content::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.privacy-content::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(45deg, #00aeff, #a68eff);
+  border-radius: 10px;
+	-webkit-box-shadow: rgba(0,0,0,.12) 0 3px 13px 1px;
+}
+.exit-privacy {
+  background-color: transparent;
+  border: unset;
+  font-size: 30px;
+  text-align:left;
+  color: white;
+}
 .new-test {
   padding: 1%;
   border: 3px solid !important;
@@ -309,7 +424,7 @@ input {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    animation: 1.5s ease-in-out  slideOnStartRight;
+    animation: 1s ease-in-out slideOnStartRight;
     overflow: hidden;
   }
   .is-shown {
@@ -320,7 +435,7 @@ input {
     background-position-x: 65%;
     display: flex;
     flex-direction: column;
-    animation: 1.5s ease-in-out 0s 1 slideOnStartLeft;
+    animation: 1s ease-in-out slideOnStartLeft;
   }
   .App-header {
     background-color: #282c34;
@@ -378,6 +493,15 @@ input {
   }
   .col {
     width: 100%;
+  }
+  .copyright {
+    color:white;
+    margin: auto;
+    margin-top: 2%;
+    font-size: 15px;
+    font-weight: normal;
+    background: transparent !important;
+    border: unset;
   }
   .react-select__control, input {
     background-color: rgba(255,255,255,0.00) !important;
@@ -445,20 +569,46 @@ input {
   .main-title{
     color:white !important;
     font-family: 'Rubik','Roboto', sans-serif;
-    font-size: 90px;
+    font-size: 5vw;
     justify-content: flex-end;
     flex: auto;
     margin-right: 2% !important;
     align-self: flex-end;
   }
+  .modal-title {
+    direction: rtl;
+    color: white !important;
+  }
+  .modal-header {
+    border-bottom: 2px solid rgba(255,255,255,0.2) !important;
+  }
+  .modal-content {
+    background-color: rgba(255,255,255,0.3) !important;
+    border-radius: 25px !important;
+    border: 0px solid !important;
+    backdrop-filter: blur(20px) !important;
+  }
+  .street-button {
+    background-color:rgb(0,2,44) !important;
+    border: 0px !important;
+    border-radius: 20px !important;
+    margin: 1em;
+  }
   .main-paragraph { 
     color: white;
     font-size: 18px;
-    font-weight: lighter;
+    font-weight: normal;
     direction: rtl;
     width: 30%;
     align-self: flex-end;
-    margin: 2% !important;
+    margin: 2% 2% 0% 2% !important;
+  }
+  .mp-bold {
+    margin: 0% 2% !important;
+    font-weight: bolder;
+  }
+  .bold {
+    font-weight: bolder !important;
   }
   .loading-spinner {
     margin: 5% !important;
@@ -472,7 +622,6 @@ input {
     width: 32px !important;
   }
   .abdev {
-    width: 100px;
     margin-top:30px;
   }
   @property --a {
@@ -507,7 +656,7 @@ input {
 
 @keyframes slideOnStartLeft {
   0% {
-      transform: translateX(-200%);
+      transform: translateX(100%);
   }
   100% {
       transform: translateX(0);
@@ -520,12 +669,12 @@ input {
   }
   100% {
       transform: translateX(-200%);
-      height: 0%;
+      height: 0px;
   }
 }
 @keyframes slideOnStartTop {
   0% {
-      transform: translateY(-300%);
+      transform: translateY(-100%);
   }
   100% {
       transform: translateY(0);
@@ -533,7 +682,7 @@ input {
 }
 @keyframes slideOnStartBottom {
   0% {
-      transform: translateY(300%);
+      transform: translateY(100%);
   }
   100% {
       transform: translateY(0);

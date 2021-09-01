@@ -6,9 +6,10 @@ import { Col, Row, Form, Button } from "react-bootstrap";
 import cityList from './CityList.json';
 import Modal from 'react-bootstrap/Modal'
 import Results from './Results'
+import Privacy from './Privacy'
 import abdev from './images/abdev.png'
 import ReactLoading from "react-loading";
-
+import Global from './Globals.js';
 function removeDuplicates(arr){
     let i=0, x=0;
     for(i=0; i<arr.length-1; i++){
@@ -45,6 +46,7 @@ function Home() {
     const [checkDuplicates, setCheckDuplicates] = useState(false);
     const [streetsModal, toggleStreetsModal] = useState(false);
     const [showResults, toggleShowResults] = useState(false);
+    const [privacyPage, togglePrivacyPage] = useState(false);
 
     useEffect(() => {
         if(streetSelected.value) findEquivalentCityID();
@@ -103,6 +105,7 @@ function Home() {
             //     console.log(unlimitedResponse.data[0].id)
             toggleLoading(false);
             toggleShowResults(true);
+            togglePrivacyPage(false);
         }
         catch (err) {
             console.error(err)
@@ -237,13 +240,14 @@ function Home() {
     const handleSelectEquivalentStreet = (e, street) => {
         setStreetSelectedCellcom(street);
         toggleStreetsModal(false);
-        setEquivalentStreetsArray(null);
+        setEquivalentStreetsArray('');
+        handleSubmit();
     }
 
     const renderEquivalentList = () => {
         if(equivalentStreetsArray){
             const list = equivalentStreetsArray.map((street) => {
-                return (<Button key={street.value} variant="primary" onClick={(e)=>{handleSelectEquivalentStreet(e,street)}}> {street.label} </Button>)
+                return (<Button key={street.value} variant="primary" className="street-button" onClick={(e)=>{handleSelectEquivalentStreet(e,street)}}> {street.label} </Button>)
             })
             return (list)
         }
@@ -256,37 +260,32 @@ function Home() {
     const handleEntranceSelection = async (event) =>{
         setEntSelected(event.target.value)
     }
-
+    const reRender = () => {
+        console.log("yes")
+        togglePrivacyPage(false);
+    }
     if(streetsModal){
         return(
             <Modal.Dialog>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal title</Modal.Title>
+                    <Modal.Title>בוא\י נוודא שמצאנו את הרחוב הנכון...</Modal.Title>
                 </Modal.Header>
-
                 <Modal.Body>
                     {renderEquivalentList()}
                 </Modal.Body>
-
-                <Modal.Footer>
-                    <Button variant="secondary">Close</Button>
-                    <Button variant="primary">Save changes</Button>
-                </Modal.Footer>
             </Modal.Dialog>
         )
     }
     return (
         <div className="blurer">
             <div className={showResults === false ? "is-shown" : "container"}>
-                <h1 className="row main-title"> בדיקת סיבים אופטיים </h1>
+                <h1 className="row main-title">בדיקת סיבים אופטיים</h1>
                 <h4 className="row main-paragraph"> ברוכים הבאים לFiberLocator, הכלי הראשון והיחיד בישראל אשר מאפשר לכם לבדוק האם ישנה תשתית סיבים בכתובתכם של החברות הוט, בזק וסלקום, ללא צורך ביצירת קשר עם כל חברה בנפרד. </h4>
+                <h4 className="row main-paragraph mp-bold"> שימו לב! FiberLocator הינו מיזם פרטי אשר אינו שייך לאף אחת מהחברות הרשומות לעיל. אין בעלי האתר אחראיים על נכונות ועדכניות המידע המוצג למשתמש. המידע הנאסף לצורך ביצוע בדיקת התשתית אינו נשמר במאגרי המידע של האתר, ומועבר בשלמותו לטיפול האתרים של החברות הנ"ל. למידע נוסף יש לקרוא את תנאי השימוש בתחתית העמוד. </h4>
                 <Form onSubmit={openModal} className="row form-div">
                     <div className="inputrow">
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>בחר עיר</Form.Label>
-                        {/* <Form.Select className="select-custom" defaultValue="Choose City" onChange={handleCitySelection}>
-                            {cityList()}
-                        </Form.Select> */}
                         <Select className='react-select-container' classNamePrefix="react-select" placeholder="בחר עיר" options={cityList} onChange={handleCitySelection} />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
@@ -297,23 +296,17 @@ function Home() {
                             <Form.Label>בחר בית</Form.Label>
                             <Select className='react-select-container' classNamePrefix="react-select" placeholder="בחר בית" options={houses} onChange={handleHouseSelection} />
                         </Form.Group>
-                        {/* <Form.Group as={Col} controlId="formGridState">
-                            <Form.Label>Appartment</Form.Label>
-                            <Form.Control className='appartment-input' onChange={handleAppSelection} type="text" defaultValue="1" />
-                        </Form.Group>
-                        <Form.Group as={Col} controlId="formGridState">
-                            <Form.Label>Entrances</Form.Label>
-                            <Select className='react-select-container' classNamePrefix="react-select" options={entrances} onChange={handleEntranceSelection} />
-                        </Form.Group> */}
+
                         <Button variant="primary" type="submit" className={loading ? "btn-primary loader" : "btn-primary"}>
                             {loading ? "אנא המתן..." : "בדוק חיבור"}
                         </Button>
                         {loadingSelect || loading ? <ReactLoading className="row loading-spinner" type="spin" color="#fff" /> : <ReactLoading className="row loading-spinner-hidden" type="spin" color="#fff" />}
                         <a href="https://github.com/alonilk2"><img src={abdev} className="row abdev" /></a>
-
-
+                        <h4 className="copyright"> כל הזכויות שמורות Ⓒ </h4>
+                        <button className="copyright bold" type="button" onClick={(e)=>{Global.ShowPrivacy = true; togglePrivacyPage(true)}}> תקנון שימוש ופרטיות </button>
                     </div>
                 </Form>
+
             </div>
             { showResults ? 
                 <div>
@@ -321,6 +314,11 @@ function Home() {
                     <button className="new-test" onClick={()=>{toggleShowResults(false)}}>
                         הרץ בדיקה חדשה
                     </button>
+                </div>
+             : null }
+            { privacyPage ? 
+                <div>
+                    <Privacy toggle={reRender}/>
                 </div>
              : null }
         </div>
