@@ -6,8 +6,10 @@
 
 FiberLocator הינו פרויקט פרטי, ללא כל מטרת רווח, שאיננו מייצג את אף אחת מהחברות המוזכרות לעיל. 
 
-Core Technologies:
+## Core Technologies:
 1) React.JS
 2) Bootstrap
 3) Node.JS
 4) Heroku Cloud
+
+## [FiberLocator URL](http://fiberlocate.herokuapp.com/)
