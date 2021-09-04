@@ -45,13 +45,12 @@ function Home() {
     const [isFiberBezeq, setIsFiberBezeq] = useState(false);
     const [checkDuplicates, setCheckDuplicates] = useState(false);
     const [streetsModal, toggleStreetsModal] = useState(false);
-    const [showResults, toggleShowResults] = useState(true);
+    const [showResults, toggleShowResults] = useState(false);
     const [privacyPage, togglePrivacyPage] = useState(false);
 
     useEffect(() => {
         if(streetSelected.value) findEquivalentCityID();
     }, [streetSelected])
-
     useEffect(() => {
         if(checkDuplicates && equivalentStreetsArray){
             let arr = removeDuplicates(equivalentStreetsArray);
@@ -59,13 +58,11 @@ function Home() {
             setEquivalentStreetsArray(arr);
         }
     }, [checkDuplicates, equivalentStreetsArray])
-
     const openModal = (e) => {
         e.preventDefault();
         if(equivalentStreetsArray.length > 0) toggleStreetsModal(true);
         else handleSubmit();
     }
-
     const handleSubmit = async () =>{
         try{
             toggleLoading(true);
@@ -111,7 +108,6 @@ function Home() {
             console.error(err)
         }
     }
-
     const handleCitySelection = async (event) => {
         let cityId = event.value;
         let city = event;
@@ -179,7 +175,6 @@ function Home() {
             setEquivalentStreetsArray(streetArray)
         }
     }
-
     const handleStreetSelection = async (event) =>{
         let streetHOT = event;
         setStreetSelected(event);
@@ -206,7 +201,6 @@ function Home() {
         catch (err) {
         }
     }
-
     const handleHouseSelection = async (event) =>{
         setHouseSelected(event.value)
         try{
@@ -236,14 +230,12 @@ function Home() {
         catch (err) {
         }
     }
-
     const handleSelectEquivalentStreet = (e, street) => {
         setStreetSelectedCellcom(street);
         toggleStreetsModal(false);
         setEquivalentStreetsArray('');
         handleSubmit();
     }
-
     const renderEquivalentList = () => {
         if(equivalentStreetsArray){
             const list = equivalentStreetsArray.map((street) => {
@@ -252,18 +244,8 @@ function Home() {
             return (list)
         }
     }
-
-    const handleAppSelection = (event) =>{
-        setAppSelected(parseInt(event.target.value))
-    }
-
-    const handleEntranceSelection = async (event) =>{
-        setEntSelected(event.target.value)
-    }
-    const reRender = () => {
-        console.log("yes")
-        togglePrivacyPage(false);
-    }
+    const handleAppSelection = (event) => setAppSelected(parseInt(event.target.value))
+    const handleEntranceSelection = async (event) => setEntSelected(event.target.value)
     if(streetsModal){
         return(
             <Modal.Dialog>
@@ -318,8 +300,8 @@ function Home() {
                 </div>
              : null }
             { privacyPage ? 
-                <div>
-                    <Privacy toggle={reRender}/>
+                <div className="privacy">>
+                    <Privacy toggle={() => togglePrivacyPage(false)}/>
                 </div>
              : null }
         </div>

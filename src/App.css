@@ -10,7 +10,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  overflow: scroll;
   background-image: url('./images/worldfiber.jpg');
   background-size: cover;
   height: inherit;
@@ -18,7 +17,7 @@
 .results {
   margin: auto;
   position: absolute;
-  left: 50%;
+  width: 90%;
 }
 .new-test {
   padding: 2%;
@@ -31,7 +30,6 @@
   margin: 2%;
   animation: 1s ease-in-out 0s 1 slideOnStartBottom;
   position: relative;
-  left: -50%;
 }
 .row {
   --bs-gutter-x: unset !important;
@@ -44,7 +42,12 @@ html, body, #root {
   height: 40vmin;
   pointer-events: none;
 }
-
+.privacy {
+  position: absolute;
+  width: 90%;
+  top: 0px;
+  height: 100vh;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -83,9 +86,11 @@ html, body, #root {
   justify-content: center;
   padding-top: 5%;
   min-height: 100%;
+  overflow: scroll;
+  overflow-x:hidden;
+  align-items: center;
 }
 .privacy-container {
-  width: 100%;
   background-color: rgba(255,255,255,1);
   border-radius: 50px;
   border: 0px solid;
@@ -93,11 +98,11 @@ html, body, #root {
   flex-direction: column;
   padding: 1%;
   animation: 1s ease-in-out slideOnStartTop;
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  height: 80%;
-position: absolute;
-top: 0px;
-  color:black;
+  height: 90%;
+  position: relative;
+  color: black;
 }
 .privacy-content {
 overflow: scroll;
@@ -178,7 +183,6 @@ color: black;
   font-weight: bolder !important;
 }
 .results-container {
-  width: 90%;
   background-color: rgba(255,255,255,0.2);
   border-radius: 50px;
   border: 0px solid;
@@ -190,7 +194,6 @@ color: black;
   align-self: center;
   margin: auto;
   position: relative;
-  left: -50%;
 }
 .result-box {
   background-color: rgba(255,255,255,0.4);
@@ -352,7 +355,7 @@ input {
     padding-top: 3%;
   }
   .results-container {
-    width: 100%;
+    width: 50%;
     background-color: rgba(255,255,255,0.3);
     border-radius: 50px;
     border: 0px solid;
