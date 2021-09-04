@@ -45,7 +45,7 @@ function Home() {
     const [isFiberBezeq, setIsFiberBezeq] = useState(false);
     const [checkDuplicates, setCheckDuplicates] = useState(false);
     const [streetsModal, toggleStreetsModal] = useState(false);
-    const [showResults, toggleShowResults] = useState(false);
+    const [showResults, toggleShowResults] = useState(true);
     const [privacyPage, togglePrivacyPage] = useState(false);
 
     useEffect(() => {
@@ -303,14 +303,14 @@ function Home() {
                         <a href="https://github.com/alonilk2"><img src={abdev} className="row abdev" /></a>
                         <h4 className="copyright"> כל הזכויות שמורות Ⓒ </h4>
                         <button className="copyright bold" type="button" onClick={(e)=>{Global.ShowPrivacy = true; togglePrivacyPage(true)}}> תקנון שימוש ופרטיות </button>
-                        <h4 className="row main-paragraph mp-bold"><br /> שימו לב! FiberLocator הינו מיזם פרטי אשר איננו משתייך לאף אחת מהחברות הרשומות לעיל. אין בעלי האתר אחראיים על נכונות ועדכניות המידע המוצג למשתמש. המידע הנאסף לצורך ביצוע בדיקת התשתית אינו נשמר במאגרי המידע של האתר, ומועבר בשלמותו לטיפול האתרים של החברות הנ"ל. למידע נוסף יש לקרוא את תנאי השימוש. </h4>
+                        <h4 className="row footer-paragraph mp-bold"><br /> שימו לב! FiberLocator הינו מיזם פרטי אשר איננו משתייך לאף אחת מהחברות הרשומות לעיל. אין בעלי האתר אחראיים על נכונות ועדכניות המידע המוצג למשתמש. המידע הנאסף לצורך ביצוע בדיקת התשתית אינו נשמר במאגרי המידע של האתר, ומועבר בשלמותו לטיפול האתרים של החברות הנ"ל. למידע נוסף יש לקרוא את תנאי השימוש. </h4>
 
                     </div>
                 </Form>
 
             </div>
             { showResults ? 
-                <div>
+                <div className="results">
                     <Results cellcom={isFiberCellcom} hot={isFiber} bezeq={isFiberBezeq} />
                     <button className="new-test" onClick={()=>{toggleShowResults(false)}}>
                         הרץ בדיקה חדשה
