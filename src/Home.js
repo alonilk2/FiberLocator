@@ -281,7 +281,6 @@ function Home() {
             <div className={showResults === false ? "is-shown" : "container"}>
                 <h1 className="row main-title">בדיקת סיבים אופטיים</h1>
                 <h4 className="row main-paragraph"> ברוכים הבאים לFiberLocator, הכלי הראשון והיחיד בישראל אשר מאפשר לכם לבדוק האם ישנה תשתית סיבים בכתובתכם של החברות הוט, בזק וסלקום, ללא צורך ביצירת קשר עם כל חברה בנפרד. </h4>
-                <h4 className="row main-paragraph mp-bold"> שימו לב! FiberLocator הינו מיזם פרטי אשר אינו שייך לאף אחת מהחברות הרשומות לעיל. אין בעלי האתר אחראיים על נכונות ועדכניות המידע המוצג למשתמש. המידע הנאסף לצורך ביצוע בדיקת התשתית אינו נשמר במאגרי המידע של האתר, ומועבר בשלמותו לטיפול האתרים של החברות הנ"ל. למידע נוסף יש לקרוא את תנאי השימוש בתחתית העמוד. </h4>
                 <Form onSubmit={openModal} className="row form-div">
                     <div className="inputrow">
                         <Form.Group as={Col} controlId="formGridState">
@@ -304,6 +303,8 @@ function Home() {
                         <a href="https://github.com/alonilk2"><img src={abdev} className="row abdev" /></a>
                         <h4 className="copyright"> כל הזכויות שמורות Ⓒ </h4>
                         <button className="copyright bold" type="button" onClick={(e)=>{Global.ShowPrivacy = true; togglePrivacyPage(true)}}> תקנון שימוש ופרטיות </button>
+                        <h4 className="row main-paragraph mp-bold"><br /> שימו לב! FiberLocator הינו מיזם פרטי אשר איננו משתייך לאף אחת מהחברות הרשומות לעיל. אין בעלי האתר אחראיים על נכונות ועדכניות המידע המוצג למשתמש. המידע הנאסף לצורך ביצוע בדיקת התשתית אינו נשמר במאגרי המידע של האתר, ומועבר בשלמותו לטיפול האתרים של החברות הנ"ל. למידע נוסף יש לקרוא את תנאי השימוש. </h4>
+
                     </div>
                 </Form>
 
