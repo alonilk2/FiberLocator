@@ -22,7 +22,7 @@ function removeDuplicates(arr){
 }
 function Home() {
 
-    const [city, setCity] = useState('');
+    const [city, setCity] = useState(null);
     const [streets, setStreetsHOT] = useState([]);
     const [streetsCellcom, setStreetsCellcom] = useState([]);
     const [houses, setHouses] = useState([]);
@@ -30,16 +30,13 @@ function Home() {
     const [loading, toggleLoading] = useState(false);
     const [loadingSelect, toggleLoadingSelect] = useState(false);
     const [entrances, setEntrances] = useState([]);
-    const [streetSelected, setStreetSelected] = useState({
-        "label": null,
-        "value": null
-    });
+    const [streetSelected, setStreetSelected] = useState(null);
     const [streetSelectedCellcom, setStreetSelectedCellcom] = useState(null);
     const [streetStringArray, setStreetStringArray] = useState(null);
     const [equivalentStreetsArray, setEquivalentStreetsArray] = useState([]);
-    const [houseSelected, setHouseSelected] = useState('');
+    const [houseSelected, setHouseSelected] = useState(null);
     const [appSelected, setAppSelected] = useState(1);
-    const [entSelected, setEntSelected] = useState('');
+    const [entSelected, setEntSelected] = useState(null);
     const [isFiber, setIsFiber] = useState(false);
     const [isFiberCellcom, setIsFiberCellcom] = useState(false);
     const [isFiberBezeq, setIsFiberBezeq] = useState(false);
@@ -47,10 +44,15 @@ function Home() {
     const [streetsModal, toggleStreetsModal] = useState(false);
     const [showResults, toggleShowResults] = useState(false);
     const [privacyPage, togglePrivacyPage] = useState(false);
+    const [newTest, toggleNewTest] = useState(false);
+    const [notChosen, toggleNotChosen] = useState(false);
 
     useEffect(() => {
-        if(streetSelected.value) findEquivalentCityID();
+        if(streetSelected) findEquivalentCityID();
     }, [streetSelected])
+    useEffect(() => {
+        if(streetSelectedCellcom && houseSelected && !newTest) handleSubmit();
+    }, [streetSelectedCellcom])
     useEffect(() => {
         if(checkDuplicates && equivalentStreetsArray){
             let arr = removeDuplicates(equivalentStreetsArray);
@@ -64,48 +66,53 @@ function Home() {
         else handleSubmit();
     }
     const handleSubmit = async () =>{
-        try{
-            toggleLoading(true);
-            const responseHot = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.hot.net.il/Api/PersonalDetails.asmx/CheckAddressForFiber",
-            {
-                "CityId": city.value,
-                "StreetId": streetSelected.value,
-                "HouseId": houseSelected,
-                "ApartmentID": appSelected,
-                "Entrance": entSelected
-            });
-            if(responseHot) setIsFiber(responseHot.data.d.IsFiber);
-            let street = streetSelectedCellcom ? streetSelectedCellcom.value : streetSelected.value
-            const responseCell = await Axios.get("https://digital-api.cellcom.co.il/api/Fiber/GetFiberAddressStatus/"
-                                    +city.value+"/"
-                                    +street+"/"
-                                    +houseSelected+"/"
-                                    +appSelected);
-            if(responseCell.data.Body.dataInfoList)
-                setIsFiberCellcom(responseCell.data.Body.dataInfoList.length > 0 ? true : false);
-            const responseBezeq = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.bezeq.co.il/umbraco/api/FormWebApi/CheckAddress",
-            {
-
-                "CityId": city.value,
-                "City": city.label,
-                "StreetId": streetSelected.value,
-                "Street": streetSelected.label,
-                "House": houseSelected,
-                "Entrance": entSelected
-            });
-            if(responseBezeq) 
-                if(responseBezeq.data.Status < 3)
-                    setIsFiberBezeq(true);
-
-            // const unlimitedResponse = await Axios.get("https://damp-hamlet-24907.herokuapp.com/https://www.unlimited.net.il/wp-json/api/v1/houses?city="+city.value+"&"+"street="+street)
-            // if(unlimitedResponse)
-            //     console.log(unlimitedResponse.data[0].id)
-            toggleLoading(false);
-            toggleShowResults(true);
-            togglePrivacyPage(false);
+        if(!city || !streetSelected || !houseSelected) {
+            toggleNotChosen(true)
+            // console.log(city)
+            // console.log(streetSelected)
+            // console.log(streetSelected.value)
+            // console.log(houseSelected.value)
         }
-        catch (err) {
-            console.error(err)
+        else {
+            try{
+                toggleLoading(true);
+                const responseHot = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.hot.net.il/Api/PersonalDetails.asmx/CheckAddressForFiber",
+                {
+                    "CityId": city.value,
+                    "StreetId": streetSelected.value,
+                    "HouseId": houseSelected.value,
+                    "ApartmentID": appSelected,
+                    "Entrance": entSelected
+                });
+                if(responseHot) setIsFiber(responseHot.data.d.IsFiber);
+                let street = streetSelectedCellcom ? streetSelectedCellcom.value : streetSelected.value
+                const responseCell = await Axios.get("https://digital-api.cellcom.co.il/api/Fiber/GetFiberAddressStatus/"
+                                        +city.value+"/"
+                                        +street+"/"
+                                        +houseSelected.value+"/"
+                                        +appSelected);
+                if(responseCell.data.Body.dataInfoList)
+                    setIsFiberCellcom(responseCell.data.Body.dataInfoList.length > 0 ? true : false);
+                const responseBezeq = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.bezeq.co.il/umbraco/api/FormWebApi/CheckAddress",
+                {
+
+                    "CityId": city.value,
+                    "City": city.label,
+                    "StreetId": street,
+                    "Street": streetSelected.label,
+                    "House": houseSelected.value,
+                    "Entrance": entSelected
+                });
+                if(responseBezeq) 
+                    if(responseBezeq.data.Status < 3 && responseBezeq.data.Status > 0)
+                        setIsFiberBezeq(true);
+                toggleLoading(false);
+                toggleShowResults(true);
+                togglePrivacyPage(false);
+            }
+            catch (err) {
+                console.error(err)
+            }
         }
     }
     const handleCitySelection = async (event) => {
@@ -166,9 +173,8 @@ function Home() {
             for(x = 0; x < streetsCellcom.length; x++){
                 street = streetsCellcom[x]
                 streetStringArray.forEach(element => { 
-                    if(street.label.includes(element)){
-                        streetArray.push(street)
-                    }
+                    if(street.label.includes(element))
+                        streetArray.push(street);
                 });
             }
             setCheckDuplicates(true)
@@ -202,7 +208,8 @@ function Home() {
         }
     }
     const handleHouseSelection = async (event) =>{
-        setHouseSelected(event.value)
+        setHouseSelected({"label": event.value, "value": event.value})
+        toggleNotChosen(false)
         try{
             const appList = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.hot.net.il/Api/PersonalDetails.asmx/GetHouseByCityStreetAndHouseNumber",
             {
@@ -234,7 +241,6 @@ function Home() {
         setStreetSelectedCellcom(street);
         toggleStreetsModal(false);
         setEquivalentStreetsArray('');
-        handleSubmit();
     }
     const renderEquivalentList = () => {
         if(equivalentStreetsArray){
@@ -244,38 +250,38 @@ function Home() {
             return (list)
         }
     }
+    const renderEquivalentStreetsModal = () => {
+        return (            
+        <Modal.Dialog>
+            <Modal.Header closeButton>
+                <Modal.Title>בוא\י נוודא שמצאנו את הרחוב הנכון...</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {renderEquivalentList()}
+            </Modal.Body>
+        </Modal.Dialog>)
+    }
     const handleAppSelection = (event) => setAppSelected(parseInt(event.target.value))
     const handleEntranceSelection = async (event) => setEntSelected(event.target.value)
-    if(streetsModal){
-        return(
-            <Modal.Dialog>
-                <Modal.Header closeButton>
-                    <Modal.Title>בוא\י נוודא שמצאנו את הרחוב הנכון...</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {renderEquivalentList()}
-                </Modal.Body>
-            </Modal.Dialog>
-        )
-    }
     return (
         <div className="blurer">
             <div className={showResults === false ? "is-shown" : "container"}>
                 <h1 className="row main-title">בדיקת סיבים אופטיים</h1>
                 <h4 className="row main-paragraph"> ברוכים הבאים לFiberLocator, הכלי הראשון והיחיד בישראל אשר מאפשר לכם לבדוק האם ישנה תשתית סיבים בכתובתכם של החברות הוט, בזק וסלקום, ללא צורך ביצירת קשר עם כל חברה בנפרד. </h4>
+                { notChosen ? <h4 className="error-message"> יש לבחור ערך בכל השדות הנדרשים. </h4> : null }
                 <Form onSubmit={openModal} className="row form-div">
                     <div className="inputrow">
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>בחר עיר</Form.Label>
-                        <Select className='react-select-container' classNamePrefix="react-select" placeholder="בחר עיר" options={cityList} onChange={handleCitySelection} />
+                        <Select className='react-select-container' classNamePrefix="react-select" value={city} placeholder="בחר עיר" options={cityList} onChange={handleCitySelection} />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>בחר רחוב</Form.Label>
-                            <Select className='react-select-container' placeholder="בחר רחוב" classNamePrefix="react-select" options={streets} onChange={handleStreetSelection} />
+                            <Select className='react-select-container' placeholder="בחר רחוב" value={streetSelected} classNamePrefix="react-select" options={streets} onChange={handleStreetSelection} />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>בחר בית</Form.Label>
-                            <Select className='react-select-container' classNamePrefix="react-select" placeholder="בחר בית" options={houses} onChange={handleHouseSelection} />
+                            <Select className='react-select-container' classNamePrefix="react-select" value={houseSelected} placeholder="בחר בית" options={houses} onChange={handleHouseSelection} />
                         </Form.Group>
 
                         <Button variant="primary" type="submit" className={loading ? "btn-primary loader" : "btn-primary"}>
@@ -289,12 +295,15 @@ function Home() {
 
                     </div>
                 </Form>
-
             </div>
+            { streetsModal ?
+                renderEquivalentStreetsModal()
+                : null
+            }
             { showResults ? 
                 <div className="results">
                     <Results cellcom={isFiberCellcom} hot={isFiber} bezeq={isFiberBezeq} />
-                    <button className="new-test" onClick={()=>{toggleShowResults(false)}}>
+                    <button className="new-test" onClick={()=>{toggleShowResults(false); toggleNewTest(true); setHouseSelected(null)}}>
                         הרץ בדיקה חדשה
                     </button>
                 </div>
