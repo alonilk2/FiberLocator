@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import Axios from 'axios';
 import Select from 'react-select'
-import './App.css';
+import '../CSS/App.css';
 import { Col, Row, Form, Button } from "react-bootstrap";
-import cityList from './CityList.json';
-import Modal from 'react-bootstrap/Modal'
-import Results from './Results'
-import Privacy from './Privacy'
-import abdev from './images/abdev.png'
+import cityList from '../Utils/CityList.json';
+import Modal from 'react-bootstrap/Modal';
+import Results from '../Components/Results';
+import Privacy from '../Components/Privacy';
+import abdev from '../images/abdev.png';
 import ReactLoading from "react-loading";
-import Global from './Globals.js';
+import Global from '../Utils/Globals.js';
 function removeDuplicates(arr){
     let i=0, x=0;
     for(i=0; i<arr.length-1; i++){

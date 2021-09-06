@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-image: url('./images/worldfiber.jpg');
+  background-image: url('../images/worldfiber.jpg');
   background-size: cover;
   height: inherit;
 }
@@ -361,7 +361,7 @@ input {
     align-items: center;
     width: 100%;
     overflow: hidden;
-    background-image: url('./images/worldfiber.jpg');
+    background-image: url('../images/worldfiber.jpg');
     background-size: cover;
     background-position: right;
     background-repeat: no-repeat;

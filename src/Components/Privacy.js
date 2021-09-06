@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Axios from 'axios';
-import './App.css';
+import '../CSS/App.css';
 import { Col, Row, Form, Button } from "react-bootstrap";
-import Global from './Globals.js';
+import Global from '../Utils/Globals.js';
 
 function Privacy(props) {
     return (

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Axios from 'axios';
-import './Results.css';
+import '../CSS/Results.css';
 import { Col, Row, Form, Button } from "react-bootstrap";
-import Cellcom from './images/cellcom.png';
-import Hot from './images/hot.png';
-import Bezeq from './images/bezeq.png';
-import Unlimited from './images/unlimited.png';
+import Cellcom from '../images/cellcom.png';
+import Hot from '../images/hot.png';
+import Bezeq from '../images/bezeq.png';
+import Unlimited from '../images/unlimited.png';
 
 function Results(props) {
     const titleFactory = (isFiber) => {

@@ -1,5 +1,5 @@
-import './App.css';
-import Home from './Home';
+import './CSS/App.css';
+import Home from './Components/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
