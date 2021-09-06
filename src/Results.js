@@ -16,7 +16,6 @@ function Results(props) {
                     נראה שעדיין אין לכם סיבים.
                     </h3>)
     }
-    console.log(props)
     return (
         <div className="results-container">
             <div className="row upper-row">

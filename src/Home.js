@@ -21,7 +21,6 @@ function removeDuplicates(arr){
     return arr;
 }
 function Home() {
-
     const [city, setCity] = useState(null);
     const [streets, setStreetsHOT] = useState([]);
     const [streetsCellcom, setStreetsCellcom] = useState([]);
@@ -66,13 +65,8 @@ function Home() {
         else handleSubmit();
     }
     const handleSubmit = async () =>{
-        if(!city || !streetSelected || !houseSelected) {
+        if(!city || !streetSelected || !houseSelected)
             toggleNotChosen(true)
-            // console.log(city)
-            // console.log(streetSelected)
-            // console.log(streetSelected.value)
-            // console.log(houseSelected.value)
-        }
         else {
             try{
                 toggleLoading(true);
@@ -142,10 +136,10 @@ function Home() {
                 setStreetsHOT(options);
                 setStreetsCellcom(optionsCellcom);
                 toggleLoadingSelect(false)
-
             }
         }
         catch (err) {
+            console.error(err);
         }
     }
     /*
@@ -201,10 +195,10 @@ function Home() {
                 })
                 setHouses(options);
                 toggleLoadingSelect(false)
-
             }
         }
         catch (err) {
+            console.error(err)
         }
     }
     const handleHouseSelection = async (event) =>{
@@ -235,6 +229,7 @@ function Home() {
             }
         }
         catch (err) {
+            console.error(err)
         }
     }
     const handleSelectEquivalentStreet = (e, street) => {
@@ -242,6 +237,8 @@ function Home() {
         toggleStreetsModal(false);
         setEquivalentStreetsArray('');
     }
+    // If not exact match was found between streets ID in HOT and CELLCOM db's,
+    // create a list of street's for final validation by the user.
     const renderEquivalentList = () => {
         if(equivalentStreetsArray){
             const list = equivalentStreetsArray.map((street) => {

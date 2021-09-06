@@ -5,7 +5,6 @@ import { Col, Row, Form, Button } from "react-bootstrap";
 import Global from './Globals.js';
 
 function Privacy(props) {
-    console.log(props)
     return (
         <div className="privacy-container">
             <button className="exit-privacy" onClick={(e)=>{Global.ShowPrivacy=false; props.toggle(); console.log(Global.ShowPrivacy)}}> X </button>
@@ -13,7 +12,7 @@ function Privacy(props) {
             <h3 style={{'text-align': 'center'}}> תנאי שימוש ותקנון פרטיות </h3>
                     <br />
                     <br />
-                    <p dir="rtl" className="privacytxt">ברוכים הבאים לFiberLocator (להלן: &ldquo;האתר&rdquo;). האתר מופעל ע&rdquo;י אלון ברנבוים (ע.מ: 206008179) &nbsp;(להלן: &ldquo;הנהלת האתר&rdquo; או &ldquo;החברה&rdquo;).<br />האתר נועד לאפשר בדיקת אפשרות לחיבור לסיבים ע"פ כתובת בשלושה חברות במקביל - סלקום, הוט ובזק. <br /> FiberLocate זהו מיזם פרטי שאיננו מייצג את החברות הנ"ל, אשר נבנה לצורכי שימוש אישי ונועד להיות חלק מפורטפוליו של מנהל האתר להדגמת כישורים ויכולות בתחום בניית אפליקציות Web. <br /> אין בפעילותו של האתר והמיזם בכדי לפגוע בזכויותיהם של החברות המספקות את המידע למשתמש. <br /></p>
+                    <p dir="rtl" className="privacytxt">ברוכים הבאים לFiberLocator (להלן: &ldquo;האתר&rdquo;). האתר מופעל ע&rdquo;י אלון ברנבוים (ת.ז: 206008179) &nbsp;(להלן: &ldquo;הנהלת האתר&rdquo; או &ldquo;החברה&rdquo;).<br />האתר נועד לאפשר בדיקת אפשרות לחיבור לסיבים ע"פ כתובת בשלושה חברות במקביל - סלקום, הוט ובזק. <br /> FiberLocate זהו מיזם פרטי שאיננו מייצג את החברות הנ"ל, אשר נבנה לצורכי שימוש אישי ונועד להיות חלק מפורטפוליו של מנהל האתר להדגמת כישורים ויכולות בתחום בניית אפליקציות Web. <br /> אין בפעילותו של האתר והמיזם בכדי לפגוע בזכויותיהם של החברות המספקות את המידע למשתמש. <br /></p>
                     <ol>
                     <li dir="rtl">
                     <p dir="rtl" className="privacytxt">כללי</p>
