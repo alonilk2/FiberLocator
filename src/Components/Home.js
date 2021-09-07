@@ -45,14 +45,19 @@ function Home() {
     const [privacyPage, togglePrivacyPage] = useState(false);
     const [newTest, toggleNewTest] = useState(false);
     const [notChosen, toggleNotChosen] = useState(false);
-
+    const [actionFired, toggleActionFired] = useState(false);
     useEffect(() => {
+                console.log("1")
+
         if(streetSelected) findEquivalentCityID();
     }, [streetSelected])
     useEffect(() => {
-        if(streetSelectedCellcom && houseSelected && !newTest) handleSubmit();
+                console.log("2")
+        if(streetSelectedCellcom && houseSelected && !newTest && actionFired) handleSubmit();
     }, [streetSelectedCellcom])
     useEffect(() => {
+                console.log("3")
+
         if(checkDuplicates && equivalentStreetsArray){
             let arr = removeDuplicates(equivalentStreetsArray);
             setCheckDuplicates(false)
@@ -61,10 +66,12 @@ function Home() {
     }, [checkDuplicates, equivalentStreetsArray])
     const openModal = (e) => {
         e.preventDefault();
+        toggleActionFired(true)
         if(equivalentStreetsArray.length > 0) toggleStreetsModal(true);
         else handleSubmit();
     }
     const handleSubmit = async () =>{
+
         if(!city || !streetSelected || !houseSelected)
             toggleNotChosen(true)
         else {
@@ -85,17 +92,18 @@ function Home() {
                                         +street+"/"
                                         +houseSelected.value+"/"
                                         +appSelected);
-                if(responseCell.data.Body.dataInfoList)
-                    setIsFiberCellcom(responseCell.data.Body.dataInfoList.length > 0 ? true : false);
+                let dataList = responseCell.data.Body.dataInfoList;
+                if(dataList && dataList.length > 0 && dataList[0].tashtitType === "FIBER")
+                    setIsFiberCellcom(true);
                 const responseBezeq = await Axios.post("https://damp-hamlet-24907.herokuapp.com/https://www.bezeq.co.il/umbraco/api/FormWebApi/CheckAddress",
                 {
 
                     "CityId": city.value,
                     "City": city.label,
-                    "StreetId": street,
+                    "StreetId": street.toString(),
                     "Street": streetSelected.label,
-                    "House": houseSelected.value,
-                    "Entrance": entSelected
+                    "House": houseSelected.value.toString(),
+                    "Entrance": ""
                 });
                 if(responseBezeq) 
                     if(responseBezeq.data.Status < 3 && responseBezeq.data.Status > 0)
@@ -237,6 +245,15 @@ function Home() {
         toggleStreetsModal(false);
         setEquivalentStreetsArray('');
     }
+    const handleSelectNewTest = () => {
+        setIsFiber(false);
+        setIsFiberCellcom(false);
+        setIsFiberBezeq(false);
+        toggleActionFired(false);
+        toggleShowResults(false);
+        toggleNewTest(true);
+        setHouseSelected(null);
+    }
     // If not exact match was found between streets ID in HOT and CELLCOM db's,
     // create a list of street's for final validation by the user.
     const renderEquivalentList = () => {
@@ -258,8 +275,6 @@ function Home() {
             </Modal.Body>
         </Modal.Dialog>)
     }
-    const handleAppSelection = (event) => setAppSelected(parseInt(event.target.value))
-    const handleEntranceSelection = async (event) => setEntSelected(event.target.value)
     return (
         <div className="blurer">
             <div className={showResults === false ? "is-shown" : "container"}>
@@ -289,7 +304,6 @@ function Home() {
                         <h4 className="copyright"> כל הזכויות שמורות Ⓒ </h4>
                         <button className="copyright bold" type="button" onClick={(e)=>{Global.ShowPrivacy = true; togglePrivacyPage(true)}}> תקנון שימוש ופרטיות </button>
                         <h4 className="row footer-paragraph mp-bold"><br /> שימו לב! FiberLocator הינו מיזם פרטי אשר איננו משתייך לאף אחת מהחברות הרשומות לעיל. אין בעלי האתר אחראיים על נכונות ועדכניות המידע המוצג למשתמש. המידע הנאסף לצורך ביצוע בדיקת התשתית אינו נשמר במאגרי המידע של האתר, ומועבר בשלמותו לטיפול האתרים של החברות הנ"ל. למידע נוסף יש לקרוא את תנאי השימוש. </h4>
-
                     </div>
                 </Form>
             </div>
@@ -300,7 +314,7 @@ function Home() {
             { showResults ? 
                 <div className="results">
                     <Results cellcom={isFiberCellcom} hot={isFiber} bezeq={isFiberBezeq} />
-                    <button className="new-test" onClick={()=>{toggleShowResults(false); toggleNewTest(true); setHouseSelected(null)}}>
+                    <button className="new-test" onClick={()=>handleSelectNewTest()}>
                         הרץ בדיקה חדשה
                     </button>
                 </div>
