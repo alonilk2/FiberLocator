@@ -1,4 +1,4 @@
-# FiberLocator - בדיקה מהירה להיתכנות לחיבור סיבים אופטיים
+# FiberLocator - בדיקה מהירה לקיום תשתית סיבים אופטיים
 
 ![FiberLocator](https://eamobileisrael.com/fiber.png)
 
