@@ -1,6 +1,9 @@
 # FiberLocator - בדיקה מהירה לקיום תשתית סיבים אופטיים
 
-![FiberLocator](https://eamobileisrael.com/fiber.png)
+## [FiberLocator DEMO](http://fiberlocate.herokuapp.com/)
+
+
+![FiberLocator](https://alonilk2.github.io/map1/fiber.jpg)
 
 ## Description
 
@@ -16,4 +19,4 @@ FiberLocator הינו פרויקט פרטי ללא מטרת רווח, שאיננ
 3) Node.JS
 4) Heroku Cloud
 
-## [FiberLocator URL](http://fiberlocate.herokuapp.com/)
+
