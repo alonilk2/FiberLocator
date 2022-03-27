@@ -17,6 +17,6 @@ FiberLocator הינו פרויקט פרטי ללא מטרת רווח, שאיננ
 1) React.JS
 2) Bootstrap
 3) Node.JS
-4) Heroku Cloud
+4) REST API's
 
 
